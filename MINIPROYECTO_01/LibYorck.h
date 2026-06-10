@@ -6,23 +6,14 @@
 #include "ESTRUCTURA.h" 
 
 using namespace std;
-
-bool compararCadenas(char c1[], char c2[], int indice) {
-    if (c1[indice] == '\0' && c2[indice] == '\0') {
-        return true;
-    } else if (c1[indice] != c2[indice]) {
-        return false;
-    } else {
-        return compararCadenas(c1, c2, indice + 1);
-    }
-}
-
 bool verificarEstudiante(char ciBuscado[]) {
     ifstream archivoLectura;
     structEstudiante estudianteLeido;
     bool encontrado;
+
     encontrado = false;
     archivoLectura.open("Estudiantes.bin", ios::binary);
+
     if (archivoLectura.is_open()) {
         while (!encontrado && archivoLectura.read((char*)&estudianteLeido, sizeof(structEstudiante))) {
             if (compararCadenas(estudianteLeido.ci, ciBuscado, 0)) {
@@ -36,6 +27,7 @@ bool verificarEstudiante(char ciBuscado[]) {
 
 bool verificarNotaRecursiva(ifstream& archivo, char ciBuscado[], char materiaBuscada[]) {
     structNotas notaLeida;
+
     if (!archivo.read((char*)&notaLeida, sizeof(structNotas))) {
         return false;
     }
@@ -62,12 +54,10 @@ bool verificarNotaUnica(char ciBuscado[], char materiaBuscada[]) {
 
 // REGISTRAR CALIFICACIÓN
 void registrarCalificacion() {
-
     structNotas nuevaNota;
     ofstream archivoEscritura;
     bool existeEst;
     bool notaDuplicada;
-    char bufferLimpieza[2];
 
     cout << "\n--- REGISTRO DE CALIFICACIONES ---" << endl;
     
@@ -79,7 +69,8 @@ void registrarCalificacion() {
     if (!existeEst) {
         cout << "Error: El estudiante con CI " << nuevaNota.ci << " no existe en Estudiantes.bin" << endl;
     } else {
-        cin.getline(bufferLimpieza, 2); 
+        cin.ignore(); 
+        
         cout << "Ingrese la materia: ";
         cin.getline(nuevaNota.materia, 30);
         
@@ -104,9 +95,9 @@ void registrarCalificacion() {
         }
     }
 }
+
 // MODIFICAR DATOS PERSONALES
 void modificarDatosPersonales() {
- 
     char ciBuscado[10];
     bool existeEst;
     bool nuevoCiOcupado;
@@ -115,16 +106,18 @@ void modificarDatosPersonales() {
     fstream archivoModificacion;
     bool modificado;
     int posicion;
-    char bufferLimpieza[2];
-    
+	cin.ignore();
     cout << "\n--- MODIFICAR DATOS PERSONALES ---" << endl;
     cout << "Ingrese el CI del estudiante que desea modificar: ";
     cin >> ciBuscado;
+
     existeEst = verificarEstudiante(ciBuscado);
+
     if (!existeEst) {
         cout << "Error: No se encontro ningun estudiante con el CI ingresado." << endl;
     } else {
-        cin.getline(bufferLimpieza, 2); 
+        cin.ignore();
+        
         cout << "Ingrese el NUEVO CI: ";
         cin >> datosNuevos.ci;
 
@@ -132,10 +125,12 @@ void modificarDatosPersonales() {
         if (!compararCadenas(ciBuscado, datosNuevos.ci, 0)) {
             nuevoCiOcupado = verificarEstudiante(datosNuevos.ci);
         }
+
         if (nuevoCiOcupado) {
             cout << "Error: El nuevo CI ingresado le pertenece a otro estudiante." << endl;
         } else {
-            cin.getline(bufferLimpieza, 2);
+            cin.ignore();
+            
             cout << "Ingrese los NUEVOS nombres: ";
             cin.getline(datosNuevos.nombres, 30);
             cout << "Ingrese los NUEVOS apellidos: ";
@@ -163,4 +158,4 @@ void modificarDatosPersonales() {
     }
 }
 
-#endif // LIBYORCK_H_INCLUDED
+#endif 
