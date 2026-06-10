@@ -4,18 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include "ESTRUCTURA.h" 
-
-using namespace std;
-bool compararCadenas(char c1[], char c2[], int indice) {
-    if (c1[indice] == '\0' && c2[indice] == '\0') {
-        return true;
-    } else if (c1[indice] != c2[indice]) {
-        return false;
-    } else {
-        return compararCadenas(c1, c2, indice + 1);
-    }
-}
-
 // REPORTE CONSOLIDADO
 void reporteConsolidado() {
     ifstream archEst;
