@@ -34,7 +34,6 @@ void reporteConsolidado() {
     if (!archEst.is_open()) {
         cout << "ERROR: No se pudo abrir Estudiantes.bin" << endl;
     } else {
-        // Lectura secuencial estructurada
         while (archEst.read((char*)&est, sizeof(structEstudiante))) {
             hayEstudiantes = true;
 
