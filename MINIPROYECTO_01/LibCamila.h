@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include "ESTRUCTURA.h" 
+
+using namespace std;
 // REPORTE CONSOLIDADO
 void reporteConsolidado() {
     ifstream archEst;
@@ -67,4 +69,5 @@ void reporteConsolidado() {
         }
     }
 }
+
 #endif
