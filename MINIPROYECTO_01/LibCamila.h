@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "cami.h"
 
 struct structEstudiante {
     char ci[10];       
