@@ -5,6 +5,12 @@
 
 using namespace std;
 
+// Materia: Programación I, Paralelo 4
+// Grupo: 5
+// Integrantes: Camila Aduviri Quisbert, Yorck Legolas Quiroz Villalobos, Alejandra Briggette Romero Aro
+// Fecha creación: 27-05-2026
+// Nombre del miniproyecto: EJERCICIO 1. Sistema de Registro Académico Consolidado 
+
 int main() {
     int opcion;
     bool salir = false;
