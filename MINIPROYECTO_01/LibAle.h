@@ -33,6 +33,7 @@ void adicionarEstudiante()
 {
     structEstudiante e;
 
+    cin.ignore();
     cout << "CI: ";
     cin.getline(e.ci, 10);
 
@@ -64,6 +65,7 @@ void modificarNotas()
     char ci[10];
     char materia[30];
 
+    cin.ignore();
     cout << "CI del estudiante: ";
     cin.getline(ci,10);
 
