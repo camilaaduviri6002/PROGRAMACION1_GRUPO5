@@ -1,31 +1,13 @@
-#ifndef LIBALE_H
-#define LIBALE_H
+#ifndef LIBALE_H_INCLUDED
+#define LIBALE_H_INCLUDED
 
+#include "Estructuras.h"
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
+
 using namespace std;
-
-//----------------------------------------
-//Estructura (Estudiante y Nota)
-
-struct structEstudiante
-{
-    char ci[10];
-    char nombres[30];
-    char apellidos[30];
-};
-
-struct structNotas
-{
-    char ci[10];
-    char materia[30];
-    int nota;
-};
-
-//-------------------------------------------------------------
-//FUNCION BUSCAR CI
 
 bool buscarCI(const char ci[])
 {
@@ -33,7 +15,7 @@ bool buscarCI(const char ci[])
 
     structEstudiante est;
 
-    while (archivo.read((char*)&est, sizeof(Estudiante)))
+    while (archivo.read((char*)&est, sizeof(structEstudiante)))
     {
         if (strcmp(est.ci, ci) == 0)
         {
@@ -46,10 +28,7 @@ bool buscarCI(const char ci[])
 
     return false;
 }
-
-//PARTE 1---------------------------------------------------------------
 //ADICIONAR ESTUDIANTE
-
 void agregarEstudiante()
 {
     structEstudiante e;
@@ -59,7 +38,7 @@ void agregarEstudiante()
 
     if (buscarCI(e.ci))
     {
-        cout << "El estudiantes ya está registrado, intente nuevamente ";
+        cout << "El estudiante ya esta registrado." << endl;
         return;
     }
 
@@ -69,25 +48,24 @@ void agregarEstudiante()
     cout << "Apellidos: ";
     cin.getline(e.apellidos, 30);
 
-    ofstream archivo("Estudiantes.bin",ios::binary | ios::app);
+    ofstream archivo("Estudiantes.bin",
+                     ios::binary | ios::app);
 
-    archivo.write((char*)&e, sizeof(Estudiante));
+    archivo.write((char*)&e, sizeof(structEstudiante));
 
     archivo.close();
 
-    cout << "Estudiante registrado"<<endl;
+    cout << "Estudiante registrado correctamente." << endl;
 }
 
-//PARTE 4-------------------------------------------------------
-//MODIFICACION DE NOTAS
-
+//MODIFICAR NOTA
 void modificarNota()
 {
     char ci[10];
     char materia[30];
 
     cout << "CI del estudiante: ";
-    cin.getline(ci, 10);
+    cin.getline(ci,10);
 
     if (!buscarCI(ci))
     {
@@ -96,20 +74,21 @@ void modificarNota()
     }
 
     cout << "Materia: ";
-    cin.getline(materia, 30);
+    cin.getline(materia,30);
 
-    fstream archivo("Notas.bin", ios::binary | ios::in | ios::out);
+    fstream archivo("Notas.bin",
+                    ios::binary | ios::in | ios::out);
 
     if (!archivo)
     {
-        cout << "No existe el archivo Notas.bin" << endl;
+        cout << "No existe el archivo Notas.bin." << endl;
         return;
     }
 
-    Nota reg;
+    structNotas reg;
     bool encontrado = false;
 
-    while (archivo.read((char*)&reg, sizeof(Nota)))
+    while (archivo.read((char*)&reg, sizeof(structNotas)))
     {
         if (strcmp(reg.ci, ci) == 0 &&
             strcmp(reg.materia, materia) == 0)
@@ -122,9 +101,9 @@ void modificarNota()
             cin >> reg.nota;
             cin.ignore();
 
-            archivo.seekp(-sizeof(Nota), ios::cur);
+            archivo.seekp(-sizeof(structNotas), ios::cur);
 
-            archivo.write((char*)&reg, sizeof(Nota));
+            archivo.write((char*)&reg, sizeof(structNotas));
 
             cout << "Nota modificada correctamente." << endl;
 
@@ -139,5 +118,6 @@ void modificarNota()
 
     archivo.close();
 }
+
 #endif
 
