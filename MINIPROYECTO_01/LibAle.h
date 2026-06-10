@@ -6,12 +6,18 @@
 #include <fstream>
 #include <cstring>
 
-
 using namespace std;
 
+
+// BUSCAR CI
 bool buscarCI(const char ci[])
 {
     ifstream archivo("Estudiantes.bin", ios::binary);
+
+    if (!archivo)
+    {
+        return false;
+    }
 
     structEstudiante est;
 
@@ -28,12 +34,15 @@ bool buscarCI(const char ci[])
 
     return false;
 }
-//ADICIONAR ESTUDIANTE
+
+
+// ADICIONAR ESTUDIANTE
 void adicionarEstudiante()
 {
     structEstudiante e;
 
     cin.ignore();
+
     cout << "CI: ";
     cin.getline(e.ci, 10);
 
@@ -59,24 +68,25 @@ void adicionarEstudiante()
     cout << "Estudiante registrado correctamente." << endl;
 }
 
-//MODIFICAR NOTA
+
+// MODIFICAR NOTA
 void modificarNotas()
 {
-    char ci[10];
-    char materia[30];
+    structNotas datosBuscados;
 
     cin.ignore();
-    cout << "CI del estudiante: ";
-    cin.getline(ci,10);
 
-    if (!buscarCI(ci))
+    cout << "CI del estudiante: ";
+    cin.getline(datosBuscados.ci, 10);
+
+    if (!buscarCI(datosBuscados.ci))
     {
         cout << "El estudiante no existe." << endl;
         return;
     }
 
     cout << "Materia: ";
-    cin.getline(materia,30);
+    cin.getline(datosBuscados.materia, 30);
 
     fstream archivo("Notas.bin",
                     ios::binary | ios::in | ios::out);
@@ -92,16 +102,19 @@ void modificarNotas()
 
     while (archivo.read((char*)&reg, sizeof(structNotas)))
     {
-        if (strcmp(reg.ci, ci) == 0 &&
-            strcmp(reg.materia, materia) == 0)
+        if (strcmp(reg.ci, datosBuscados.ci) == 0 &&
+            strcmp(reg.materia, datosBuscados.materia) == 0)
         {
             encontrado = true;
 
             cout << "Nota actual: " << reg.nota << endl;
 
-            cout << "Nueva nota: ";
-            cin >> reg.nota;
-            cin.ignore();
+            do
+            {
+                cout << "Nueva nota (0-100): ";
+                cin >> reg.nota;
+            }
+            while (reg.nota < 0 || reg.nota > 100);
 
             archivo.seekp(-sizeof(structNotas), ios::cur);
 
