@@ -1,5 +1,5 @@
-#ifndef LIBALE_H_INCLUDED
-#define LIBALE_H_INCLUDED
+#ifndef LIBALE_H
+#define LIBALE_H
 
 #include <iostream>
 #include <fstream>
@@ -10,14 +10,14 @@ using namespace std;
 //----------------------------------------
 //Estructura (Estudiante y Nota)
 
-struct Estudiante
+struct structEstudiante
 {
     char ci[10];
     char nombres[30];
     char apellidos[30];
 };
 
-struct Nota
+struct structNotas
 {
     char ci[10];
     char materia[30];
@@ -31,7 +31,7 @@ bool buscarCI(const char ci[])
 {
     ifstream archivo("Estudiantes.bin", ios::binary);
 
-    Estudiante est;
+    structEstudiante est;
 
     while (archivo.read((char*)&est, sizeof(Estudiante)))
     {
@@ -52,14 +52,14 @@ bool buscarCI(const char ci[])
 
 void agregarEstudiante()
 {
-    Estudiante e;
+    structEstudiante e;
 
     cout << "CI: ";
     cin.getline(e.ci, 10);
 
     if (buscarCI(e.ci))
     {
-        cout << "El estudiantes ya está registrado, intente nuevamente ";
+        cout << "El estudiantes ya estÃ¡ registrado, intente nuevamente ";
         return;
     }
 
