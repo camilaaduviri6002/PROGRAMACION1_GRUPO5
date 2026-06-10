@@ -6,7 +6,7 @@
 #include "ESTRUCTURA.h" 
 
 using namespace std;
-// REPORTE CONSOLIDADO
+
 void reporteConsolidado() {
     ifstream archEst;
     ifstream archNotas;
@@ -41,7 +41,7 @@ void reporteConsolidado() {
             if (archNotas.is_open()) {
                 while (archNotas.read((char*)&n, sizeof(structNotas))) {
                     
-                    // Función recursiva local
+                   
                     if (compararCadenas(n.ci, est.ci, 0)) {
                         tieneNotas = true;
                         
