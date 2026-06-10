@@ -18,5 +18,3 @@ struct structNotas
 #endif
 
 
-
-#endif // ESTRUCTURA_H_INCLUDED
