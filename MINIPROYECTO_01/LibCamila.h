@@ -67,9 +67,4 @@ void reporteConsolidado() {
         }
     }
 }
-//  SALIR
-void salir() {
-    cout << "\nSaliendo del sistema. Hasta luego." << endl;
-}
-
 #endif
