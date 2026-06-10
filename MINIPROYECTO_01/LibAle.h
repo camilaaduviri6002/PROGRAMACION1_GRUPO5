@@ -1,7 +1,7 @@
 #ifndef LIBALE_H_INCLUDED
 #define LIBALE_H_INCLUDED
 
-#include "Estructuras.h"
+#include "ESTRUCTURA.h"
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -29,7 +29,7 @@ bool buscarCI(const char ci[])
     return false;
 }
 //ADICIONAR ESTUDIANTE
-void agregarEstudiante()
+void adicionarEstudiante()
 {
     structEstudiante e;
 
@@ -59,7 +59,7 @@ void agregarEstudiante()
 }
 
 //MODIFICAR NOTA
-void modificarNota()
+void modificarNotas()
 {
     char ci[10];
     char materia[30];
@@ -120,4 +120,3 @@ void modificarNota()
 }
 
 #endif
-
